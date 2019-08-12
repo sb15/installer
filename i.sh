@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # install
-# curl https://raw.githubusercontent.com/sb15/installer/master/i.sh | INSTALLONLINE=1 sh
+# curl -fsS https://raw.githubusercontent.com/sb15/installer/master/i.sh | INSTALLONLINE=1 sh
 
 PROJECT="installer"
 OS="debian"
@@ -74,14 +74,6 @@ _process() {
   echo ${_CMD}
 
 }
-
-
-
-if _exists curl; then
-  echo 1
-else
-  echo "Sorry, you must have curl or wget installed first."
-fi
 
 if [ "$INSTALLONLINE" ]; then
   INSTALLONLINE=""

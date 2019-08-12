@@ -1,7 +1,14 @@
 #!/usr/bin/env sh
 
+# install
+# curl https://raw.githubusercontent.com/sb15/installer/master/i.sh INSTALLONLINE=1 | sh
+
 PROJECT="installer"
+OS="debian"
+PROJECT_FILES="https://raw.githubusercontent.com/sb15/installer/master/"
 VER=1.0.0
+
+#/etc/os-release
 
 _exists() {
   cmd="$1"
@@ -52,7 +59,7 @@ _process() {
         ;;
       memcached)
 
-        curl http://debian.sb6.ru/install/{${1}} | sh
+        curl ${PROJECT_FILES}${OS}/{${1}} | sh
 
         _CMD="install"
         ;;
@@ -79,7 +86,7 @@ fi
 if [ "$INSTALLONLINE" ]; then
   INSTALLONLINE=""
 
-  curl http://debian.sb6.ru/install/{${1}} > /usr/local/bin/i
+  curl ${PROJECT_FILES}i.sh > /usr/local/bin/i
 
   exit
 fi

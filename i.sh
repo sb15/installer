@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # install
-# curl https://raw.githubusercontent.com/sb15/installer/master/i.sh INSTALLONLINE=1 | sh
+# curl https://raw.githubusercontent.com/sb15/installer/master/i.sh | INSTALLONLINE=1 sh
 
 PROJECT="installer"
 OS="debian"
@@ -86,7 +86,8 @@ fi
 if [ "$INSTALLONLINE" ]; then
   INSTALLONLINE=""
 
-  curl ${PROJECT_FILES}i.sh > /usr/local/bin/i
+  curl -fsS ${PROJECT_FILES}i.sh -o /usr/local/bin/i
+  chmod 755 /usr/local/bin/i
 
   exit
 fi

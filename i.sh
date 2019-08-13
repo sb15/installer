@@ -60,7 +60,7 @@ _process() {
       memcached | \
       list )
 
-        curl ${PROJECT_FILES}${OS}/{${1}} | sh
+        curl -fsS ${PROJECT_FILES}${OS}/{${1}} | sh
 
         _CMD="install"
         ;;

@@ -54,10 +54,11 @@ _process() {
         return
         ;;
       --install)
-
-        _CMD="install"
+        _install
         ;;
-      memcached)
+
+      memcached | \
+      list )
 
         curl ${PROJECT_FILES}${OS}/{${1}} | sh
 
@@ -75,11 +76,15 @@ _process() {
 
 }
 
+_install() {
+  curl -fsS ${PROJECT_FILES}i.sh -o /usr/local/bin/i
+  chmod 755 /usr/local/bin/i
+}
+
 if [ "$INSTALLONLINE" ]; then
   INSTALLONLINE=""
 
-  curl -fsS ${PROJECT_FILES}i.sh -o /usr/local/bin/i
-  chmod 755 /usr/local/bin/i
+  _install
 
   exit
 fi

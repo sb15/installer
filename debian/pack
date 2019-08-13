@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+if [ "$(whoami)" != "root" ]; then
+    SUDO=sudo
+fi
+
+${SUDO} apt-get -y install p7zip p7zip-full unzip

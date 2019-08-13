@@ -1,0 +1,123 @@
+#!/usr/bin/env sh
+
+NOW="$(date +"-%Y%m%d%H%M")"
+
+MYSQL="$(which mysql)"
+MYSQLDUMP="$(which mysqldump)"
+
+DEST="/backup"
+MBD="$DEST/shapshot/db"
+
+SNAPSHOT="$DEST/snapshot$NOW"
+mkdir $SNAPSHOT
+mkdir $SNAPSHOT/etc
+mkdir $SNAPSHOT/db
+mkdir $SNAPSHOT/usr
+
+SKIP="information_schema
+performance_schema
+"
+
+
+if [ -d "/etc/nginx" ]; then
+    echo "backup nginx"
+    tar czf $SNAPSHOT/etc/nginx.tar.gz -C /etc/nginx .
+fi
+
+if [ -d "/etc/php" ]; then
+    echo "backup php"
+    tar czf $SNAPSHOT/etc/php.tar.gz -C /etc/php .
+fi
+
+if [ -d "/etc/openvpn" ]; then
+    echo "backup openvpn"
+    tar czf $SNAPSHOT/etc/openvpn.tar.gz -C /etc/openvpn .
+fi
+
+if [ -d "/etc/supervisor" ]; then
+    echo "backup supervisor"
+    tar czf $SNAPSHOT/etc/supervisor.tar.gz -C /etc/supervisor .
+fi
+
+if [ -d "/etc/exim4" ]; then
+    echo "backup exim4"
+    tar czf $SNAPSHOT/etc/exim4.tar.gz -C /etc/exim4 .
+fi
+
+if [ -d "/etc/datadog-agent" ]; then
+    echo "backup /etc/datadog-agent"
+    tar czf $SNAPSHOT/etc/datadog-agent.tar.gz -C /etc/datadog-agent .
+fi
+
+if [ -d "/etc/janus" ]; then
+    echo "backup /etc/janus"
+    tar czf $SNAPSHOT/etc/janus.tar.gz -C /etc/janus .
+fi
+
+if [ -d "/etc/network" ]; then
+    echo "backup /etc/network"
+    tar czf $SNAPSHOT/etc/network.tar.gz -C /etc/network .
+fi
+
+if [ -d "/var/spool/cron/crontabs" ]; then
+    echo "backup crontabs"
+    tar czf $SNAPSHOT/etc/crontabs.tar.gz -C /var/spool/cron/crontabs .
+fi
+
+if [ -d "/etc/apt" ]; then
+    echo "backup apt"
+    tar czf $SNAPSHOT/etc/apt.tar.gz -C /etc/apt .
+fi
+
+if [ -d "/srv" ]; then
+    echo "backup /srv"
+#    tar czf $SNAPSHOT/srv.tar.gz -C /srv .
+fi
+
+if [ -d "/usr/src" ]; then
+    echo "backup /usr/src"
+    tar czf $SNAPSHOT/usr/src.tar.gz -C /usr/src .
+fi
+
+if [ -d "/home" ]; then
+    echo "backup /home"
+    tar czf $SNAPSHOT/home.tar.gz -C /home .
+fi
+
+if [ -d "/root" ]; then
+    echo "backup /root"
+    tar czf $SNAPSHOT/root.tar.gz -C /root .
+fi
+
+if [ -f "/etc/hosts" ]; then
+    echo "backup hosts"
+    cp /etc/hosts $SNAPSHOT/etc/hosts
+fi
+
+apt-mark showmanual > $SNAPSHOT/etc/installed-packages
+
+DBS="$($MYSQL -u root -Bse 'show databases')"
+
+for db in $DBS
+do
+    skipdb=-1
+    if [ "$SKIP" != "" ];
+    then
+        for i in $SKIP
+        do
+            [ "$db" == "$i" ] && skipdb=1 || :
+        done
+    fi
+
+    if [ "$skipdb" == "-1" ] ; then
+        FILE="$MBD/$db.sql"
+        $MYSQLDUMP -h localhost -u root -Q -c -C --add-drop-table --add-locks --quick --lock-tables $db > $FILE
+        tar czf $FILE.tar.gz $FILE
+        rm $FILE
+        echo "Db $db saved"
+    fi
+done
+
+# pack all with password
+
+# s3cmd

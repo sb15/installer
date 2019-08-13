@@ -1,12 +1,22 @@
 #!/usr/bin/env sh
 
 # install
-# curl -fsS https://raw.githubusercontent.com/sb15/installer/master/i.sh | INSTALLONLINE=1 sh
+# curl https://raw.githubusercontent.com/sb15/installer/master/i.sh | INSTALL=1 sh
+
 
 PROJECT="installer"
-OS="debian"
 PROJECT_FILES="https://raw.githubusercontent.com/sb15/installer/master/"
 VER=1.0.0
+BIN_FILE="/usr/local/bin/i"
+
+_os() {
+    OS=$(grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
+}
+_os
+
+if [ "$(whoami)" != "root" ]; then
+    SUDO=sudo
+fi
 
 #/etc/os-release
 
@@ -24,6 +34,8 @@ _exists() {
   ret="$?"
   return $ret
 }
+
+
 
 version() {
   echo "$PROJECT"
@@ -58,11 +70,20 @@ _process() {
         ;;
 
       memcached | \
+      nodejs-12 | \
+      yarn | \
+      php-7.2 | \
+      php-7.2-phalcon | \
+      composer | \
+      postgresql | \
+      elasticsearch-7 | \
+      supervisord | \
+      exim | \
+      redis | \
+      pack | \
+      snapshot | \
       list )
-
         curl -fsS ${PROJECT_FILES}${OS}/{${1}} | sh
-
-        _CMD="install"
         ;;
       *)
         echo "Unknown parameter : $1"
@@ -71,23 +92,31 @@ _process() {
   esac
     shift 1
   done
-
-  echo ${_CMD}
-
 }
+
+#HTTP_CODE=`curl http://example.com/ \
+#      --verbose
+#      --write-out "%{http_code}" \
+#      --output my-output-file`
+#
+#if [ "$HTTP_CODE" != "200" ]; then
+#    cat my-output-file
+#    rm my-output-file
+#fi
 
 _install() {
-  curl -fsS ${PROJECT_FILES}i.sh -o /usr/local/bin/i
-  chmod 755 /usr/local/bin/i
 
-  echo "installed to /usr/local/bin/i"
+  ${SUDO} apt-get -y install apt-transport-https lsb-release ca-certificates gnupg
+
+  curl -fsS ${PROJECT_FILES}i.sh -o ${BIN_FILE}
+  chmod 755 ${BIN_FILE}
+
+  echo "installed to ${BIN_FILE}"
 }
 
-if [ "$INSTALLONLINE" ]; then
-  INSTALLONLINE=""
-
+if [ "$INSTALL" ]; then
+  INSTALL=""
   _install
-
   exit
 fi
 

@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+if [ $# -ne 2 ]
+then
+  echo " ${0##*/} <file/dir> <filename> - archive and compress files and dirs"
+  exit 65
+fi
+
+tar cvzf $2.tar.gz $1 && \
+echo "Created $2.tar.gz"

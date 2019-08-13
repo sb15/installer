@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+if [ "$(whoami)" != "root" ]; then
+    SUDO=sudo
+fi
+
+curl -sL https://deb.nodesource.com/setup_12.x | ${SUDO} bash -
+${SUDO} apt-get -y install nodejs

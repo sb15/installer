@@ -1,3 +1,24 @@
 #!/usr/bin/env sh
 
-echo "\e[32mmemcached\e[39m"
+RED_COLOR='\033[0;31m'
+GREEN_COLOR='\033[0;32m'
+NC='\033[0m'
+
+echo "${GREEN_COLOR}memcached${NC}"
+echo "${GREEN_COLOR}redis${NC}"
+
+echo "${GREEN_COLOR}php-7.2${NC}"
+echo "${GREEN_COLOR}php-7.2-phalcon${NC}"
+echo "${GREEN_COLOR}composer${NC}"
+
+echo "${GREEN_COLOR}postgresql${NC}"
+echo "${GREEN_COLOR}mariadb${NC}"
+
+echo "${GREEN_COLOR}yarn${NC}"
+echo "${GREEN_COLOR}nodejs-12${NC}"
+
+echo "${GREEN_COLOR}exim${NC}"
+
+echo "${GREEN_COLOR}supervisor${NC}"
+
+echo "${GREEN_COLOR}elasticsearch${NC}"

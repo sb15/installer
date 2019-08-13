@@ -53,7 +53,7 @@ _process() {
         version
         return
         ;;
-      --install)
+      --install | --upgrade)
         _install
         ;;
 
@@ -79,6 +79,8 @@ _process() {
 _install() {
   curl -fsS ${PROJECT_FILES}i.sh -o /usr/local/bin/i
   chmod 755 /usr/local/bin/i
+
+  echo "installed to /usr/local/bin/i"
 }
 
 if [ "$INSTALLONLINE" ]; then

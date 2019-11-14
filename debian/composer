@@ -4,5 +4,4 @@ if [ "$(whoami)" != "root" ]; then
     SUDO=sudo
 fi
 
-
 curl -sS https://getcomposer.org/installer | ${SUDO} php -- --install-dir=/usr/local/bin --filename=composer

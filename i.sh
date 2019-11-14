@@ -82,6 +82,11 @@ _process() {
       redis | \
       pack | \
       snapshot | \
+      nginx | \
+      git | \
+      mariadb | \
+      beanstalk | \
+      acme.sh | \
       list )
         curl -fsS ${PROJECT_FILES}${OS}/{${1}} | sh
         ;;

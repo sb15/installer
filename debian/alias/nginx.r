@@ -4,4 +4,4 @@ if [ "$(whoami)" != "root" ]; then
     SUDO=sudo
 fi
 
-${SUDO} apt-get install supervisor
+${SUDO} service nginx configtest && ${SUDO} service nginx start

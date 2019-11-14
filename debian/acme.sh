@@ -4,4 +4,4 @@ if [ "$(whoami)" != "root" ]; then
     SUDO=sudo
 fi
 
-${SUDO} apt-get install supervisor
+curl https://get.acme.sh | ${SUDO} sh

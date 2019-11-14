@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+if [ "$(whoami)" != "root" ]; then
+    SUDO=sudo
+fi
+
+curl -sL https://nginx.org/keys/nginx_signing.key | ${SUDO} apt-key add -
+${SUDO} sh -c 'echo "deb http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" > /etc/apt/sources.list.d/nginx.list'
+${SUDO} apt-get update
+${SUDO} apt-get -y install nginx

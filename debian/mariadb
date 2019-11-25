@@ -4,4 +4,4 @@ if [ "$(whoami)" != "root" ]; then
     SUDO=sudo
 fi
 
-${SUDO} apt-get install mariadb-server
+${SUDO} apt-get install -y mariadb-server

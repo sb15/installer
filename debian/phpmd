@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+PHPMD_BIN_FILE="/usr/local/bin/phpmd"
+
+sudo curl -fsSL https://phpmd.org/static/latest/phpmd.phar -o ${PHPMD_BIN_FILE} && \
+sudo chmod +x ${PHPMD_BIN_FILE} && \
+echo "Installed PHPMd"
+

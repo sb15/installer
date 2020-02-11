@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+PHPCS_BIN_FILE="/usr/local/bin/phpcs"
+
+sudo curl -fsSL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -o ${PHPCS_BIN_FILE} && \
+sudo chmod +x ${PHPCS_BIN_FILE} && \
+printf "Installed " && \
+phpcs --version
+

@@ -1,8 +1,4 @@
 #!/usr/bin/env sh
 
-if [ "$(whoami)" != "root" ]; then
-    SUDO=sudo
-fi
-
-curl -s "https://packagecloud.io/install/repositories/phalcon/stable/script.deb.sh" | ${SUDO} bash
-${SUDO} apt-get install php7.2-phalcon
+curl -s "https://packagecloud.io/install/repositories/phalcon/stable/script.deb.sh" | sudo bash
+sudo apt-get install php7.2-phalcon

@@ -1,11 +1,7 @@
 #!/usr/bin/env sh
 
-if [ "$(whoami)" != "root" ]; then
-    SUDO=sudo
-fi
-
-curl -sL https://www.postgresql.org/media/keys/ACCC4CF8.asc | ${SUDO} apt-key add -
-${SUDO} sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" > /etc/apt/sources.list.d/postgresql.list'
-${SUDO} apt-get update
-${SUDO} apt-get -y install postgresql
+curl -sL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" > /etc/apt/sources.list.d/postgresql.list'
+sudo apt-get update
+sudo apt-get -y install postgresql
 

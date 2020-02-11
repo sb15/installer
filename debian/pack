@@ -1,7 +1,14 @@
 #!/usr/bin/env sh
 
-if [ "$(whoami)" != "root" ]; then
-    SUDO=sudo
-fi
+sudo apt-get -y install p7zip p7zip-full unzip
 
-${SUDO} apt-get -y install p7zip p7zip-full unzip
+PACK_FILE="/usr/local/bin/pack"
+UNPACK_FILE="/usr/local/bin/unpack"
+
+sudo curl -fsSL https://raw.githubusercontent.com/sb15/installer/master/tools/pack -o ${PACK_FILE} && \
+sudo chmod +x ${PACK_FILE} && \
+echo "Installed pack"
+
+sudo curl -fsSL https://raw.githubusercontent.com/sb15/installer/master/tools/unpack -o ${UNPACK_FILE} && \
+sudo chmod +x ${PACK_FILE} && \
+echo "Installed pack"

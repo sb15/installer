@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+PHPUNIT_BIN_FILE="/usr/local/bin/phpunit"
+
+sudo curl -fsSL https://phar.phpunit.de/phpunit.phar -o ${PHPUNIT_BIN_FILE} && \
+sudo chmod +x ${PHPUNIT_BIN_FILE} && \
+echo "Installed PHPUnit" && \
+phpunit --version
+

@@ -1,7 +1,3 @@
 #!/usr/bin/env sh
 
-if [ "$(whoami)" != "root" ]; then
-    SUDO=sudo
-fi
-
-${SUDO} apt-get install supervisor
+sudo apt-get install supervisor

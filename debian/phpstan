@@ -2,7 +2,7 @@
 
 PHPSTAN_BIN_FILE="/usr/local/bin/phpstan"
 
-sudo curl -fsSL https://github.com/phpstan/phpstan/raw/master/phpstan.phar -o ${PHPSTAN_BIN_FILE} && \
+sudo curl -fsSL https://github.com/phpstan/phpstan/releases/latest/download/phpstan.phar -o ${PHPSTAN_BIN_FILE} && \
 sudo chmod +x ${PHPSTAN_BIN_FILE} && \
 echo "Installed PHPStan" && \
 phpstan -V
